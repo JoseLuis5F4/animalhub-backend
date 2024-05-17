@@ -39,3 +39,6 @@ const animalSchema = new mongoose.Schema({
   },
   adoptionRate: { type: Number, trim: true, required: true },
 });
+
+const animal = mongoose.model("Animal", animalSchema);
+module.exports = animal;
