@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const animalSchema = new mongoose.Schema({
   // Datos del animal
   name: { type: String, trim: true, required: true },
-  ciudad: { type: String, trim: true, required: true },
+  city: { type: String, trim: true, required: true },
   species: { type: String, trim: true, required: true },
   birthDate: { type: Date, trim: true, required: true },
   age: {
@@ -40,5 +40,5 @@ const animalSchema = new mongoose.Schema({
   adoptionRate: { type: Number, trim: true, required: true },
 });
 
-const animal = mongoose.model("Animal", animalSchema);
-module.exports = animal;
+const Animal = mongoose.model("Animal", animalSchema);
+module.exports = Animal;

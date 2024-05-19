@@ -1,16 +1,17 @@
-const user = require("./user.model");
+const User = require("./user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res, next) => {
   try {
-    const userExist = await User.findOne({ email: user.email });
+    const userExist = await User.findOne({ email: req.body.email });
     if (userExist) {
-      return new Error("El email que has introducido ya está en uso.");
+      return res
+        .status(400)
+        .json({ message: "El email que has introducido ya está en uso." });
     }
-    const userDB = await user.save();
-    return res.json({
-      status: 201,
+    const userDB = await new User(req.body).save();
+    return res.status(201).json({
       message: `El usuario ${userDB.email} ha sido creado`,
     });
   } catch (error) {
@@ -21,7 +22,11 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const userInfo = await User.findOne({ email: req.body.email });
-    console.log(bcrypt.compareSync(req.body.password, userInfo.password));
+    if (!userInfo) {
+      return res
+        .status(400)
+        .json({ message: "Las credenciales no son válidas" });
+    }
     if (bcrypt.compareSync(req.body.password, userInfo.password)) {
       userInfo.password = "*************";
       const token = jwt.sign(
@@ -34,14 +39,14 @@ const login = async (req, res, next) => {
       );
 
       return res.status(200).json({
-        data: { message: "ok", user: userInfo, token: token },
+        message: "Sesión iniciada, ¡bienvenido!",
+        user: userInfo,
+        token: token,
       });
     } else {
-      return res.json({
-        status: 400,
-        message: "Las credenciales no son válidas",
-        data: null,
-      });
+      return res
+        .status(400)
+        .json({ message: "Las credenciales no son válidas" });
     }
   } catch (error) {
     return next(error);
@@ -50,11 +55,8 @@ const login = async (req, res, next) => {
 
 const logout = (req, res, next) => {
   try {
-    const token = null;
-    return rex.status(200).json({
-      status: 200,
-      message: "Sesión cerrada con éxito",
-    });
+    // Realiza las acciones necesarias para cerrar la sesión, como invalidar el token, etc.
+    return res.status(200).json({ message: "Sesión cerrada con éxito" });
   } catch (error) {
     return next(error);
   }

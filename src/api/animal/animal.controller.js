@@ -1,14 +1,11 @@
-const animal = require("./animal.model");
-
-// Funciones CRUD
+const Animal = require("./animal.model");
 
 const createAnimal = async (req, res, next) => {
   try {
-    const animal = await animal.create(req.body);
-    res.json({
-      status: 201,
+    const newAnimal = await Animal.create(req.body);
+    res.status(201).json({
       message: "Perfil del animal creado",
-      data: animal,
+      data: newAnimal,
     });
   } catch (error) {
     next(error);
@@ -18,9 +15,8 @@ const createAnimal = async (req, res, next) => {
 const getOneAnimal = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const animal = await animal.findById(id);
+    const animal = await Animal.findById(id);
     res.json({
-      status: 200,
       message: "Filtro por id",
       data: animal,
     });
@@ -32,9 +28,8 @@ const getOneAnimal = async (req, res, next) => {
 const getOneByName = async (req, res, next) => {
   try {
     const name = req.params.name;
-    const animal = await animal.findOne({ name: name });
+    const animal = await Animal.findOne({ name: name });
     res.json({
-      status: 200,
       message: "Filtro por nombre",
       data: animal,
     });
@@ -45,11 +40,10 @@ const getOneByName = async (req, res, next) => {
 
 const getAllAnimals = async (req, res, next) => {
   try {
-    const animal = await animal.find();
+    const animals = await Animal.find();
     res.json({
-      status: 200,
       message: "Todos los animales",
-      data: animal,
+      data: animals,
     });
   } catch (error) {
     next(error);
@@ -59,14 +53,12 @@ const getAllAnimals = async (req, res, next) => {
 const updateAnimal = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const body = req.body;
-    const animal = await animal.findByIdAndUpdate(id, body, {
+    const updatedAnimal = await Animal.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.json({
-      status: 200,
       message: "Perfil del animal actualizado",
-      data: animal,
+      data: updatedAnimal,
     });
   } catch (error) {
     next(error);
@@ -76,11 +68,10 @@ const updateAnimal = async (req, res, next) => {
 const deleteAnimal = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const animal = await animal.findByIdAndDelete(id);
+    const deletedAnimal = await Animal.findByIdAndDelete(id);
     res.json({
-      status: 200,
       message: "Perfil del animal eliminado",
-      data: animal,
+      data: deletedAnimal,
     });
   } catch (error) {
     next(error);

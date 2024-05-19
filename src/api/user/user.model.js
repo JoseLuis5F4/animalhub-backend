@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const { validationPassword, validationEmail } = require("../../utils/validate");
+const {
+  setError,
+  validationPassword,
+  validationEmail,
+} = require("../../utils/validate");
 
 const userSchema = new mongoose.Schema({
   email: { type: String, trim: true, required: true },
@@ -9,7 +13,7 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, trim: true, required: true },
   direction: { type: String, trim: true, required: true },
   roleProtector: { type: Boolean },
-  nifNie: { type: String, trim: true, required: true },
+  nifCif: { type: String, trim: true, required: true },
 });
 
 userSchema.pre("save", function (next) {

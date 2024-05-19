@@ -5,19 +5,15 @@ const isAuth = (req, res, next) => {
   const secret = req.app.get("secretKey") || process.env.JWT_SECRET;
 
   if (!authorization) {
-    return res.json({
-      status: 401,
+    return res.status(401).json({
       message: "No autorizado",
-      data: null,
     });
   }
 
   const splits = authorization.split(" ");
-  if (splits.lenght != 2 || splits[0] != "Bearer") {
-    return res.json({
-      status: 400,
+  if (splits.length !== 2 || splits[0] !== "Bearer") {
+    return res.status(400).json({
       message: "Solicitud incorrecta",
-      data: null,
     });
   }
 
@@ -34,6 +30,7 @@ const isAuth = (req, res, next) => {
     name: token.name,
   };
   req.authority = authority;
+
   next();
 };
 
