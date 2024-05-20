@@ -4,6 +4,22 @@ const animalSchema = new mongoose.Schema({
   // Datos del animal
   name: { type: String, trim: true, required: true },
   city: { type: String, trim: true, required: true },
+  animalType: {
+    type: String,
+    enum: [
+      "Perro",
+      "Gato",
+      "Conejo",
+      "Cobaya",
+      "Pequeño Mamífero",
+      "Hurón",
+      "Pez",
+      "Reptil",
+      "Anfibio",
+      "Arácnido o Insecto",
+      "Ave",
+    ],
+  },
   species: { type: String, trim: true, required: true },
   birthDate: { type: Date, trim: true, required: true },
   age: {
