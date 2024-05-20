@@ -3,6 +3,7 @@ const { connectMongo } = require("./src/utils/db");
 const dotenv = require("dotenv");
 const userRouter = require("./src/api/user/user.router");
 const animalRouter = require("./src/api/animal/animal.router");
+const adoptionRouter = require("./src/api/adoption/adoption.router");
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ connectMongo();
 // Rutas
 app.use("/user", userRouter);
 app.use("/animal", animalRouter);
+app.use("/adoptions", adoptionRouter);
 
 app.listen(PORT, () => {
   console.log(`El servidor se ha iniciado en el puerto: ${PORT}`);
