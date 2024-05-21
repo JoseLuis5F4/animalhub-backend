@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const userRouter = require("./src/api/user/user.router");
 const animalRouter = require("./src/api/animal/animal.router");
 const adoptionRouter = require("./src/api/adoption/adoption.router");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -13,6 +14,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// IMPORTANTE
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
@@ -20,6 +23,13 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+app.use(
+  cors({
+    origin: "*",
+    // origin:["http://localhost:4200/"],
+    credentials: true,
+  })
+);
 connectMongo();
 
 // Rutas
