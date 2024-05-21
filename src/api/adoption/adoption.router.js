@@ -13,8 +13,8 @@ const {
 const { isAuth } = require("../middleware/auth.middleware");
 
 adoptionRouter.post("/", isAuth, createAdoption);
-adoptionRouter.get("/", getAllAdoptions);
-adoptionRouter.get("/:id", getOneAdoption);
+adoptionRouter.get("/", isAuth, getAllAdoptions);
+adoptionRouter.get("/:id", isAuth, getOneAdoption);
 // adoptionRouter.get("/adoptions/name/:name", getOneByNameAdoption);
 adoptionRouter.patch("/:id", isAuth, updateAdoption);
 adoptionRouter.delete("/:id", isAuth, deleteAdoption);
