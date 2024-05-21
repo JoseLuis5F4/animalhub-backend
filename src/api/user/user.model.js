@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   direction: { type: String, trim: true, required: true },
   roleProtector: { type: Boolean },
   nifCif: { type: String, trim: true, required: true },
+  image: { type: String, trim: true, required: false },
 });
 
 userSchema.pre("save", function (next) {
