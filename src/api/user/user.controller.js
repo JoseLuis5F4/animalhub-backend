@@ -55,11 +55,21 @@ const login = async (req, res, next) => {
 
 const logout = (req, res, next) => {
   try {
-    // Realiza las acciones necesarias para cerrar la sesión, como invalidar el token, etc.
+    // Realiza las acciones de cerrar la sesión e invalidar el token.
     return res.status(200).json({ message: "Sesión cerrada con éxito" });
   } catch (error) {
     return next(error);
   }
 };
 
-module.exports = { register, login, logout };
+const getUsers = async (req, res, next) => {
+  try {
+    // Comprobar si se elimina las cols de contraseñas
+    const users = await User.find({}, "-password");
+    return res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { register, login, logout, getUsers };

@@ -3,6 +3,8 @@ const Adoption = require("./adoption.model");
 
 const createAdoption = async (req, res, next) => {
   try {
+    console.log(req.authority);
+    req.body.user_id = req.authority.id;
     const newAdoption = await Adoption.create(req.body);
     res.status(201).json({
       message: "Iniciado Proceso de Adopción",
@@ -53,7 +55,9 @@ const getAllAdoptions = async (req, res, next) => {
 
 const updateAdoption = async (req, res, next) => {
   try {
+    console.log(req.body);
     const id = req.params.id;
+    console.log(id);
     const updateAdoption = await Adoption.findByIdAndUpdate(id, req.body, {
       new: true,
     });

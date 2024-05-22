@@ -19,7 +19,7 @@ const adoptionSchema = new mongoose.Schema({
   adoption_status: {
     type: String,
     enum: ["En proceso", "Rechazado", "Completado"],
-    default: "En Proceso",
+    default: "En proceso",
     required: true,
   },
   name: { type: String, trim: true, required: true },
