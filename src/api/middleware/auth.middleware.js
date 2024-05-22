@@ -6,7 +6,7 @@ const isAuth = (req, res, next) => {
 
   if (!authorization) {
     return res.status(401).json({
-      message: "No autorizado",
+      message: "No autorizado dado que no existe token",
     });
   }
 

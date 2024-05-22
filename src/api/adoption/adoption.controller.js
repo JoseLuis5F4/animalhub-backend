@@ -41,7 +41,7 @@ const getOneAdoption = async (req, res, next) => {
 
 const getAllAdoptions = async (req, res, next) => {
   try {
-    const adoptions = await Adoption.find().populate("animal_id", "");
+    const adoptions = await Adoption.find().populate("animal_id");
     res.json({
       message: "Búsqueda de todos los animales en adopción",
       data: adoptions,
